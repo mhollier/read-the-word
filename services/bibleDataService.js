@@ -15,13 +15,15 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getBibles method.
    * @callback getBiblesCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} bibles - An array of bible objects.
    */
 
   /**
    * Gets the list of available bible versions/translations.
-   * @param {getBiblesCallback} callback - The callback that handles the response.
+   * @param {getBiblesCallback} callback - The callback that handles the
+   * response.
    */
   function getBibles(callback) {
     Bible.find({}, function(err, bibleEntities) {
@@ -40,14 +42,16 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getBible method.
    * @callback getBibleCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} bible - An bible object.
    */
 
   /**
    * Gets the list of available bible versions/translations.
    * @param {String} code - The bile code/identifier (e.g. KJV, WEB, etc.).
-   * @param {getBibleCallback} callback - The callback that handles the response.
+   * @param {getBibleCallback} callback - The callback that handles the
+   * response.
    */
   function getBible(code, callback) {
     Bible.findOne({code: code}, function(err, bibleEntity) {
@@ -62,7 +66,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getBooks method.
    * @callback getBooksCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} books - An array of book objects.
    */
 
@@ -101,7 +106,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getBook method.
    * @callback getBookCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} book - A book object.
    */
 
@@ -125,7 +131,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getChapters method.
    * @callback getChaptersCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} chapters - An array of chapter objects.
    */
 
@@ -133,7 +140,8 @@ var BibleDataService = function(Bible, Book, Verse) {
    * Gets the list of available books for the requested bible version.
    * @param {String} bible - The bible version code (e.g. KJV, WEB, etc.).
    * @param {String} book - The book code (e.g. GEN, EXO, etc.).
-   * @param {getChaptersCallback} callback - The callback that handles the response.
+   * @param {getChaptersCallback} callback - The callback that handles the
+   * response.
    */
   function getChapters(bible, book, callback) {
     var qry = {bible: bible, book: book};
@@ -154,7 +162,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getChapter method.
    * @callback getChapterCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} chapter - A chapter object.
    */
 
@@ -163,7 +172,8 @@ var BibleDataService = function(Bible, Book, Verse) {
    * @param {String} bible - The bible version code (e.g. KJV, WEB, etc.).
    * @param {String} book - The book code (e.g. GEN, EXO, etc.).
    * @param {Number} chapter - The chapter number.
-   * @param {getChapterCallback} callback - The callback that handles the response.
+   * @param {getChapterCallback} callback - The callback that handles the
+   * response.
    */
   function getChapter(bible, book, chapter, callback) {
     var qry = {bible: bible, book: book, chapter: chapter};
@@ -176,7 +186,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getVerses method.
    * @callback getVersesCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} verses - An array of verse objects.
    */
 
@@ -185,7 +196,8 @@ var BibleDataService = function(Bible, Book, Verse) {
    * @param {String} bible - The bible version code (e.g. KJV, WEB, etc.).
    * @param {String} book - The book code (e.g. GEN, EXO, etc.).
    * @param {Number} chapter - The chapter number.
-   * @param {getVersesCallback} callback - The callback that handles the response.
+   * @param {getVersesCallback} callback - The callback that handles the
+   * response.
    */
   function getVerses(bible, book, chapter, callback) {
     var qry = {bible: bible, book: book, chapter: chapter};
@@ -201,7 +213,8 @@ var BibleDataService = function(Bible, Book, Verse) {
   /**
    * The callback format for the getVerse method.
    * @callback getVerseCallback
-   * @param {Error} err - An error instance representing the error during the execution.
+   * @param {Error} err - An error instance representing the error during the
+   * execution.
    * @param {object} verse - A verse object.
    */
 
@@ -211,7 +224,8 @@ var BibleDataService = function(Bible, Book, Verse) {
    * @param {String} book - The book code (e.g. GEN, EXO, etc.).
    * @param {Number} chapter - The chapter number.
    * @param {Number} verse - The verse number.
-   * @param {getVerseCallback} callback - The callback that handles the response.
+   * @param {getVerseCallback} callback - The callback that handles the
+   * response.
    */
   function getVerse(bible, book, chapter, verse, callback) {
     var qry = {bible: bible, book: book, chapter: chapter, verse: verse};

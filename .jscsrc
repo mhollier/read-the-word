@@ -1,0 +1,8 @@
+{
+	"preset": "node-style-guide",
+	"validateLineBreaks": "CRLF",
+	"maximumLineLength": {
+		"value": 80,
+		"allExcept": [ "comments" ]
+	}
+}
