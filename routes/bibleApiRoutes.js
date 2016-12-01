@@ -1,8 +1,8 @@
 var express = require("express");
 
-var bibleApiRoutes = function (Bible, Book, Verse) {
+var bibleApiRoutes = function (bibleDataService) {
   var router = express.Router();
-  var bibleApiController = require("../controllers/bibleApiController")(Bible, Book, Verse);
+  var bibleApiController = require("../controllers/bibleApiController")(bibleDataService);
 
   // Middleware
   router.use(function (req, res, next) {

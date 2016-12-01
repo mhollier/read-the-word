@@ -18,7 +18,9 @@ db.on("open", function () {
 var Bible = require("./models/bibleModel");
 var Book = require("./models/bookModel");
 var Verse = require("./models/verseModel");
-var bibleRouter = require("./routes/bibleApiRoutes")(Bible, Book, Verse);
+
+var bibleDataService = require("./services/bibleDataService")(Bible, Book, Verse);
+var bibleRouter = require("./routes/bibleApiRoutes")(bibleDataService);
 
 var app = express();
 
