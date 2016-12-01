@@ -17,7 +17,9 @@
   },
   "description": "Read the bible using Node.js, Express, and MongoDB.",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "jscs": "^3.0.7"
+  },
   "keywords": [
     "Node.js",
     "Express",
