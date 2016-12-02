@@ -1,0 +1,17 @@
+<!-- Book chapter reader view -->
+<div class="container body-content">
+  <h2>{{book.title}}</h2>
+
+  <p>
+    <a href="#books?bible={{book.bible}}">Back to List</a>
+  </p>
+  <div>
+    <ul class="pagination">
+      <li ng-repeat="chapter in chapters" class="{{chapter.chapter == currChapter?'active':''}}">
+        <a href="#chapters?bible={{chapter.bible}}&book={{chapter.book}}&chapter={{chapter.chapter}}">
+          {{chapter.chapter}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

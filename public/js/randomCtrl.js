@@ -1,9 +1,9 @@
 (function () {
-  var app = angular.module("readTheWord");
+  var app = angular.module('readTheWord');
 
   var randomCtrl = function ($scope) {
-    console.log("randomCtrl()");
+    console.log('randomCtrl()');
   };
 
-  app.controller("randomCtrl", randomCtrl);
+  app.controller('randomCtrl', randomCtrl);
 }());
