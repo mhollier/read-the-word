@@ -1,8 +1,13 @@
 <!-- Random verse view -->
-<div class="container">
+<div class="container body-content">
   <h2><span class="glyphicon glyphicon-book"></span> Random Verse</h2>
   <blockquote>
-    <p>Settle it therefore in your hearts not to meditate beforehand how to answer,</p>
-    <footer><a href="#">Luke</a> 21:14 (WEB)</footer>
+    <p>{{verse.text}}</p>
+    <footer>
+      <a href="#chapters?bible={{verse.bible}}&book={{verse.book}}&chapter={{verse.chapter}}">
+        {{verse.book}}
+      </a>
+      {{verse.chapter}}:{{verse.verse}} ({{verse.bible}})
+    </footer>
   </blockquote>
 </div>

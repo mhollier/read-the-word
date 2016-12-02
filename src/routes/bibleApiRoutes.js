@@ -11,7 +11,11 @@ var bibleApiRoutes = function(bibleDataService) {
   router.route('/')
     .get(bibleApiController.getBibles);
 
-  // Get bible by id
+  // Get bible by id (e.g. 'KJV', 'WEB', etc.)
+  router.route('/random')
+    .get(bibleApiController.getRandomVerse);
+
+  // Get bible by id (e.g. 'KJV', 'WEB', etc.)
   router.route('/:id')
     .get(bibleApiController.getBibleById);
 
@@ -19,7 +23,7 @@ var bibleApiRoutes = function(bibleDataService) {
   router.route('/:bible/books')
     .get(bibleApiController.getBooks);
 
-  // Get book by id
+  // Get book by id (e.g. 'GEN', 'EXO', etc.)
   router.route('/:bible/books/:id')
     .get(bibleApiController.getBookById);
 

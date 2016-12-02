@@ -8,7 +8,8 @@
   <div>
     <ul class="pagination">
       <li ng-repeat="chapter in chapters" class="{{chapter.chapter == currChapter.chapter?'active':''}}">
-        <a href="#chapters?bible={{chapter.bible}}&book={{chapter.book}}&chapter={{chapter.chapter}}">
+        <a href="#chapters?bible={{chapter.bible}}&book={{chapter.book}}&chapter={{chapter.chapter}}"
+           ng-click="getChapterVerses(chapter.chapter)">
           {{chapter.chapter}}
         </a>
       </li>

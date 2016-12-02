@@ -11,6 +11,23 @@
  * @constructor
  */
 var BibleDataService = function(Bible, Book, Verse) {
+  var MAX_VERSE_NUM = 31000;
+
+
+  /**
+   * Gets a random verse object.
+   * @param {String} bible - The bible version code (e.g. KJV, WEB, etc.).
+   * @param {getVerseCallback} callback - The callback that handles the
+   * response.
+   */
+  function getRandomVerse(bible, callback) {
+    var index = Math.floor(Math.random() * MAX_VERSE_NUM);
+
+    var qry = {bible: bible, index: index};
+    Verse.findOne(qry, function(err, entity) {
+      callback(err, verseFromEntity(entity));
+    });
+  }
 
   /**
    * The callback format for the getBibles method.
@@ -285,6 +302,7 @@ var BibleDataService = function(Bible, Book, Verse) {
   }
 
   return {
+    getRandomVerse: getRandomVerse,
     getBibles: getBibles,
     getBooks: getBooks,
     getBible: getBible,

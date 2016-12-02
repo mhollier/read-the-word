@@ -2,9 +2,9 @@
   var app = angular.module('readTheWord');
 
   var chaptersCtrl = function ($scope, $routeParams, $http) {
-    console.log('chaptersCtrl()');
     var bibleCode = $routeParams['bible'];
     var bookCode = $routeParams['book'];
+    console.log('chaptersCtrl: bible=' + bibleCode, ',book=' + bookCode);
 
     var currChapterNum = parseInt($routeParams['chapter'] || '1');
 
@@ -24,6 +24,15 @@
         console.log("Received verses for chapter" + $scope.currChapter);
         $scope.verses = res.data;
       });
+
+    $scope.getChapterVerses = function (chapterNum) {
+      $scope.currChapter = $scope.chapters[chapterNum - 1];
+      $http.get($scope.currChapter.versesUrl)
+        .then(function (res) {
+          console.log("Received verses for chapter" + $scope.currChapter);
+          $scope.verses = res.data;
+        })
+    };
   };
 
   app.controller('chaptersCtrl', chaptersCtrl);

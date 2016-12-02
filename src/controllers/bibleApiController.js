@@ -17,6 +17,28 @@ var bibleApiController = function(bibleDataService) {
     return bible;
   };
 
+  var getRandomVerse = function (req, res, next) {
+    // Default to KJV translation for now
+    bibleDataService.getRandomVerse('KJV', function (err, verse) {
+      if (err) {
+        next();
+      } else if (verse) {
+        addVerseLinks(req, verse);
+        res.json(verse);
+      } else {
+        sendNotFound(res);
+      }
+    });
+    // res.json({
+    //   bible: 'KJV',
+    //   book: 'GEN',
+    //   chapter: 1,
+    //   verse: 1,
+    //   text: "In the beginning God created the heaven and the earth",
+    //   url: "http://localhost:5001/api/bibles/KJV/books/GEN/chapters/1/verses/1",
+    // });
+  };
+
   var getBibles = function(req, res, next) {
     bibleDataService.getBibles(function(err, bibles) {
       if (err) {
@@ -174,6 +196,7 @@ var bibleApiController = function(bibleDataService) {
   };
 
   return {
+    getRandomVerse: getRandomVerse,
     getBibles: getBibles,
     getBibleById: getBibleById,
     getBooks: getBooks,
