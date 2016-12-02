@@ -7,11 +7,17 @@
   </p>
   <div>
     <ul class="pagination">
-      <li ng-repeat="chapter in chapters" class="{{chapter.chapter == currChapter?'active':''}}">
+      <li ng-repeat="chapter in chapters" class="{{chapter.chapter == currChapter.chapter?'active':''}}">
         <a href="#chapters?bible={{chapter.bible}}&book={{chapter.book}}&chapter={{chapter.chapter}}">
           {{chapter.chapter}}
         </a>
       </li>
     </ul>
+  </div>
+
+  <!-- Render chapter text -->
+  <h4>Chapter {{currChapter.chapter}}</h4>
+  <div class="panel">
+    <p ng-repeat="verse in verses"><sup>{{verse.verse}}</sup> {{verse.text}}</p>
   </div>
 </div>
