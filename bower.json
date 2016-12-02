@@ -1,0 +1,23 @@
+{
+  "name": "read-the-word",
+  "description": "Read the bible using AngularJS, Node.js, Express, and MongoDB.",
+  "main": "app.js",
+  "authors": [
+    "Mark E. Hollier"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "AngularJS",
+    "Express",
+    "MongoDB",
+    "Node.js"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var index = require('./routes/index');
+//var index = require('./src/routes/index');
 
 mongoose.connect('mongodb://localhost/readTheWord');
 var db = mongoose.connection;
@@ -15,29 +15,31 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.on('open', function() {
     console.log('MongoDB connection open');
   });
-var Bible = require('./models/bibleModel');
-var Book = require('./models/bookModel');
-var Verse = require('./models/verseModel');
+var Bible = require('./src/models/bibleModel');
+var Book = require('./src/models/bookModel');
+var Verse = require('./src/models/verseModel');
 
-var BibleDataService = require('./services/bibleDataService');
+var BibleDataService = require('./src/services/bibleDataService');
 var dataService = new BibleDataService(Bible, Book, Verse);
-var bibleRouter = require('./routes/bibleApiRoutes')(dataService);
+var bibleRouter = require('./src/routes/bibleApiRoutes')(dataService);
 
 var app = express();
 
 // View engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//app.set('views', 'src/views');
+//app.set('view engine', 'ejs');
 
-// Uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
+app.use(express.static('bower_components'));
 
-app.use('/', index);
 app.use('/api/bibles', bibleRouter);
+app.get('*', function(req, res) {
+  res.send('index.html');
+});
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
