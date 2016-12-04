@@ -6,9 +6,10 @@ web application. It uses [Express](http://expressjs.com/) and
 [MongoDB](http://www.mongodb.com) on the server side.
 
 ## Usage
-Perform the following steps:
+Perform the following steps (MongoDB must be running):
 
     npm install
+    node dbload/dbload.js
     npm start
 
 ## Contributing
