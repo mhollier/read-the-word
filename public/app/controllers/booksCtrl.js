@@ -3,7 +3,7 @@
 
   var booksCtrl = function ($scope, $routeParams, $http) {
     console.log('booksCtrl()');
-    var bibleCode = $routeParams['bible'];
+    var bibleCode = $routeParams['bibleCode'];
     $http.get('/api/bibles/' + bibleCode)
       .then(function(res) {
         console.log("Received " + bibleCode);

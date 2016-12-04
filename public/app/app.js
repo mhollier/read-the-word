@@ -15,11 +15,15 @@
         templateUrl : 'app/templates/bibles.html',
         controller: 'biblesCtrl'
       })
-      .when('/books', {
+      .when('/bibles/:bibleCode', {
         templateUrl: 'app/templates/books.html',
         controller: "booksCtrl"
       })
-      .when('/chapters', {
+      .when('/bibles/:bibleCode/:bookCode/chapters', {
+        templateUrl: 'app/templates/chapters.html',
+        controller: "chaptersCtrl"
+      })
+      .when('/bibles/:bibleCode/:bookCode/chapters/:chapterNum', {
         templateUrl: 'app/templates/chapters.html',
         controller: "chaptersCtrl"
       })

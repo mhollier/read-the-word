@@ -15,7 +15,7 @@
       </tr>
       <tr ng-repeat="book in books | filter : {'testament': 'OT'}">
         <td>
-          <a href="#chapters?bible={{bible.code}}&book={{book.code}}&chapter=1">
+          <a href="#/bibles/{{bible.code}}/{{book.code}}/chapters">
             {{book.title}}
           </a>
         </td>
@@ -34,7 +34,7 @@
       </tr>
       <tr ng-repeat="book in books | filter : {'testament': 'NT'}">
         <td>
-          <a href="#chapters?bible={{bible.code}}&book={{book.code}}&chapter=1">
+          <a href="#/bibles/{{bible.code}}/{{book.code}}/chapters">
             {{book.title}}
           </a>
         </td>
