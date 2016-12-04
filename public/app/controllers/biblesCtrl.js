@@ -1,13 +1,14 @@
 (function () {
   var app = angular.module('readTheWord');
 
-  var biblesCtrl = function ($scope, $routeParams, $http) {
-    console.log('biblesCtrl()');
+  var biblesCtrl = function ($scope, $routeParams, $http, $log, bibleApi) {
+    $log.debug('biblesCtrl()');
 
-    $http.get('/api/bibles')
-      .then(function onSuccess(res) {
-        console.log(res.data);
-        $scope.bibles = res.data;
+    // Retrieve the list of available bibles
+    bibleApi.getBibles()
+      .then(function (bibles) {
+        console.log(bibles);
+        $scope.bibles = bibles;
       });
   };
 

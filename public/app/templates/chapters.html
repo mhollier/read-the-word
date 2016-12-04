@@ -3,20 +3,21 @@
   <h2>{{book.title}}</h2>
 
   <p>
-    <a href="#books?bible={{book.bible}}">Back to books</a>
+    <a href="#bibles/{{book.bible}}">Back to books</a>
   </p>
   <div>
     <ul class="pagination">
-      <li ng-repeat="chapter in chapters" class="{{chapter.chapter == currChapter.chapter?'active':''}}">
-        <a href="" ng-click="getChapterVerses(chapter.chapter)">
-          {{chapter.chapter}}
+      <li ng-repeat="c in chapterRange"
+          class="{{c == currChapterNum?'active':''}}">
+        <a href="" ng-click="getChapterVerses(c)">
+          {{c}}
         </a>
       </li>
     </ul>
   </div>
 
   <!-- Render chapter text -->
-  <h4>Chapter {{currChapter.chapter}}</h4>
+  <h4>Chapter {{currChapterNum}}</h4>
   <div class="panel">
     <p ng-repeat="verse in verses"><sup>{{verse.verse}}</sup> {{verse.text}}</p>
   </div>

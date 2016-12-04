@@ -1,19 +1,22 @@
 (function () {
   var app = angular.module('readTheWord');
 
-  var booksCtrl = function ($scope, $routeParams, $http) {
-    console.log('booksCtrl()');
+  var booksCtrl = function ($scope, $routeParams, $http, $log, bibleApi) {
     var bibleCode = $routeParams['bibleCode'];
-    $http.get('/api/bibles/' + bibleCode)
-      .then(function(res) {
-        console.log("Received " + bibleCode);
-        $scope.bible = res.data;
-        return $http.get($scope.bible.booksUrl)
+    $log.debug('booksCtrl: ' + bibleCode);
+
+    // Retrieve the bible details
+    bibleApi.getBible(bibleCode)
+      .then(function (bible) {
+        $log.debug("Received bible " + bibleCode);
+        $scope.bible = bible;
+        return bibleApi.getBooks(bibleCode);
       })
-      .then(function(res) {
-        console.log("Received books from " + $scope.bible.booksUrl);
-        $scope.books = res.data;
-    });
+      // Retrieve the list of books
+      .then(function(books) {
+        $log.debug("Received books from " + $scope.bible.booksUrl);
+        $scope.books = books;
+      });
   };
 
   app.controller('booksCtrl', booksCtrl);
