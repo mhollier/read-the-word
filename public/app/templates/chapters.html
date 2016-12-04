@@ -1,5 +1,6 @@
 <!-- Book chapter reader view -->
 <div class="container body-content">
+  <h6 class="text-right"><a href="#bibles/{{bible.code}}">{{bible.title}}</a></h6>
   <h2>{{book.title}}</h2>
 
   <p>
@@ -11,6 +12,23 @@
           class="{{c == currChapterNum?'active':''}}">
         <a href="" ng-click="getChapterVerses(c)">
           {{c}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div>
+    <ul class="pager">
+      <li class="previous">
+        <a href="" ng-click="previousChapter()">
+          <span class="glyphicon glyphicon-chevron-left"></span> Previous
+        </a>
+      </li>
+
+      <li class="next">
+        <a href="" ng-click="nextChapter()">
+          Next <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
       </li>
     </ul>
