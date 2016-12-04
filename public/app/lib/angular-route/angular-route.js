@@ -34,7 +34,7 @@ function shallowCopy(src, dst) {
 
 /* global shallowCopy: false */
 
-// There are necessary for `shallowCopy()` (included via `src/shallowCopy.js`).
+// There are necessary for `shallowCopy()` (included via `server/shallowCopy.js`).
 // They are initialized inside the `$RouteProvider`, to ensure `window.angular` is available.
 var isArray;
 var isObject;

@@ -7,27 +7,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-//var index = require('./src/routes/index');
-
 mongoose.connect('mongodb://localhost/readTheWord');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.on('open', function() {
     console.log('MongoDB connection open');
   });
-var Bible = require('./src/models/bibleModel');
-var Book = require('./src/models/bookModel');
-var Verse = require('./src/models/verseModel');
+var Bible = require('./server/models/bibleModel');
+var Book = require('./server/models/bookModel');
+var Verse = require('./server/models/verseModel');
 
-var BibleDataService = require('./src/services/bibleDataService');
+var BibleDataService = require('./server/services/bibleDataService');
 var dataService = new BibleDataService(Bible, Book, Verse);
-var bibleRouter = require('./src/routes/bibleApiRoutes')(dataService);
+var bibleRouter = require('./server/routes/bibleApiRoutes')(dataService);
 
 var app = express();
-
-// View engine setup
-//app.set('views', 'src/views');
-//app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

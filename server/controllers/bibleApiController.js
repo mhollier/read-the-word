@@ -29,14 +29,6 @@ var bibleApiController = function(bibleDataService) {
         sendNotFound(res);
       }
     });
-    // res.json({
-    //   bible: 'KJV',
-    //   book: 'GEN',
-    //   chapter: 1,
-    //   verse: 1,
-    //   text: "In the beginning God created the heaven and the earth",
-    //   url: "http://localhost:5001/api/bibles/KJV/books/GEN/chapters/1/verses/1",
-    // });
   };
 
   var getBibles = function(req, res, next) {

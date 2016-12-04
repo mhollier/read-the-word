@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         src: 'js/tests/unit/*.js'
       },
       assets: {
-        src: ['docs/assets/js/src/*.js', 'docs/assets/js/*.js', '!docs/assets/js/*.min.js']
+        src: ['docs/assets/js/server/*.js', 'docs/assets/js/*.js', '!docs/assets/js/*.min.js']
       }
     },
 
@@ -83,19 +83,19 @@ module.exports = function (grunt) {
         config: 'js/.jscsrc'
       },
       grunt: {
-        src: '<%= jshint.grunt.src %>'
+        src: '<%= jshint.grunt.server %>'
       },
       core: {
-        src: '<%= jshint.core.src %>'
+        src: '<%= jshint.core.server %>'
       },
       test: {
-        src: '<%= jshint.test.src %>'
+        src: '<%= jshint.test.server %>'
       },
       assets: {
         options: {
           requireCamelCaseOrUpperCaseIdentifiers: null
         },
-        src: '<%= jshint.assets.src %>'
+        src: '<%= jshint.assets.server %>'
       }
     },
 
@@ -194,7 +194,7 @@ module.exports = function (grunt) {
         src: 'dist/css/<%= pkg.name %>-theme.css'
       },
       docs: {
-        src: ['docs/assets/css/src/docs.css']
+        src: ['docs/assets/css/server/docs.css']
       },
       examples: {
         expand: true,
@@ -220,7 +220,7 @@ module.exports = function (grunt) {
           ids: false,
           'overqualified-elements': false
         },
-        src: 'docs/assets/css/src/docs.css'
+        src: 'docs/assets/css/server/docs.css'
       }
     },
 
@@ -245,8 +245,8 @@ module.exports = function (grunt) {
       docs: {
         src: [
           'docs/assets/css/ie10-viewport-bug-workaround.css',
-          'docs/assets/css/src/pygments-manni.css',
-          'docs/assets/css/src/docs.css'
+          'docs/assets/css/server/pygments-manni.css',
+          'docs/assets/css/server/docs.css'
         ],
         dest: 'docs/assets/css/docs.min.css'
       }
@@ -269,8 +269,8 @@ module.exports = function (grunt) {
         dest: 'docs/examples/'
       },
       docs: {
-        src: 'docs/assets/css/src/docs.css',
-        dest: 'docs/assets/css/src/docs.css'
+        src: 'docs/assets/css/server/docs.css',
+        dest: 'docs/assets/css/server/docs.css'
       }
     },
 
@@ -368,7 +368,7 @@ module.exports = function (grunt) {
         ignore: [
           'Attribute "autocomplete" not allowed on element "button" at this point.',
           'Attribute "autocomplete" is only allowed when the input type is "color", "date", "datetime", "datetime-local", "email", "hidden", "month", "number", "password", "range", "search", "tel", "text", "time", "url", or "week".',
-          'Element "img" is missing required attribute "src".'
+          'Element "img" is missing required attribute "server".'
         ]
       },
       src: '_gh_pages/**/*.html'
@@ -376,11 +376,11 @@ module.exports = function (grunt) {
 
     watch: {
       src: {
-        files: '<%= jshint.core.src %>',
+        files: '<%= jshint.core.server %>',
         tasks: ['jshint:core', 'qunit', 'concat']
       },
       test: {
-        files: '<%= jshint.test.src %>',
+        files: '<%= jshint.test.server %>',
         tasks: ['jshint:test', 'qunit']
       },
       less: {
