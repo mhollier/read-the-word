@@ -66,6 +66,14 @@
         });
     };
 
+    var getRandomVerse = function() {
+      var url = baseUrl + 'random';
+      return $http.get(url)
+        .then(function (res) {
+          return res.data;
+        });
+    };
+
     return {
       getBibles: getBibles,
       getBible: getBible,
@@ -73,7 +81,8 @@
       getBook: getBook,
       getChapters: getChapters,
       getChapter: getChapter,
-      getChapterVerses: getChapterVerses
+      getChapterVerses: getChapterVerses,
+      getRandomVerse: getRandomVerse
     };
   };
 
