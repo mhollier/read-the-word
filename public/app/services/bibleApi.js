@@ -1,7 +1,7 @@
 (function () {
   var bibleApi = function ($http) {
 
-    var baseUrl = '/api/bibles/';
+    var baseUrl = 'api/bibles/';
 
     var getBibles = function () {
       return $http.get(baseUrl).then(function (res) {

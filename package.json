@@ -1,9 +1,9 @@
 {
   "name": "read-the-word",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node ./server/www"
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "1.15.2",

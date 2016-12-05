@@ -29,6 +29,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(express.static('bower_components'));
+app.set("port", 5001);
+
 
 app.use('/api/bibles', bibleRouter);
 app.get('*', function(req, res) {
@@ -53,4 +55,6 @@ app.use(function(err, req, res) {
     res.render('error');
   });
 
-module.exports = app;
+app.listen(app.get("port"), function(err) {
+  console.log("Server running on port " + app.get("port"));
+});
