@@ -3,10 +3,11 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node bible-server.js --port 5001"
   },
   "dependencies": {
     "body-parser": "1.15.2",
+    "command-line-args": "3.0.4",
     "cookie-parser": "1.4.3",
     "debug": "2.2.0",
     "ejs": "2.5.2",
@@ -17,8 +18,7 @@
   },
   "description": "Read the bible using AngularJS, Node.js, Express, and MongoDB.",
   "main": "app.js",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "keywords": [
     "AngularJS",
     "Express",

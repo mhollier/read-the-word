@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../bible-server');
 var debug = require('debug')('read-the-word:server');
 var http = require('http');
 

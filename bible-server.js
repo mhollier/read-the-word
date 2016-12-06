@@ -6,6 +6,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var commandLineArgs = require('command-line-args');
+
+// Parse the command line options
+const optionDefinitions = [
+  {name: 'port', type: Number},
+];
+var options = commandLineArgs(optionDefinitions);
 
 mongoose.connect('mongodb://localhost/readTheWord');
 var db = mongoose.connection;
@@ -29,7 +36,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(express.static('bower_components'));
-app.set("port", 5001);
+app.set('port', options.port || 5001);
 
 
 app.use('/api/bibles', bibleRouter);
@@ -55,6 +62,6 @@ app.use(function(err, req, res) {
     res.render('error');
   });
 
-app.listen(app.get("port"), function(err) {
-  console.log("Server running on port " + app.get("port"));
+app.listen(app.get('port'), function(err) {
+  console.log('Server running on port ' + app.get('port'));
 });
