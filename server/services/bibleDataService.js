@@ -10,7 +10,7 @@
  * getVerses: getVerses, getVerse: getVerse}}
  * @constructor
  */
-var BibleDataService = function(Bible, Book, Verse) {
+var BibleDataService = function (Bible, Book, Verse) {
   var MAX_VERSE_NUM = 31000;
 
 
@@ -24,9 +24,55 @@ var BibleDataService = function(Bible, Book, Verse) {
     var index = Math.floor(Math.random() * MAX_VERSE_NUM);
 
     var qry = {bible: bible, index: index};
-    Verse.findOne(qry, function(err, entity) {
-      callback(err, verseFromEntity(entity));
+    Verse.findOne(qry, function (err, entity) {
+
+      var randomVerseData = verseFromEntity(entity);
+      // If there is an error, invoke the callback and exit.
+      if (err) {
+        callback(err, randomVerseData);
+        return;
+      }
+
+      randomVerseData.start = randomVerseData.verse;
+      randomVerseData.end = randomVerseData.verse;
+
+      // If the verse is a fragment, then include the following verse.
+      var lastChar = randomVerseData ? randomVerseData.text.slice(-1) : null;
+      if (lastChar && (lastChar === ',' || lastChar === ';' || lastChar === ':')) {
+        // Get the verse count for this chapter. If we are already at the last
+        // verse for some reason, then return what we have.
+        getVerseCount(bible, randomVerseData.book, function (err, verseCount) {
+          if (randomVerseData.end < verseCount) {
+            getAndConcatNextVerse(randomVerseData, callback);
+          } else {
+            callback(err, randomVerseData);
+          }
+        });
+      } else {
+        callback(err, randomVerseData);
+      }
     });
+  }
+
+  function getVerseCount(bible, book, callback) {
+    var qry = {bible: bible, book: book};
+    Verse.find(qry).limit(1).sort({verse: -1})
+      .then(function onSuccess(result) {
+        callback(null, result[0].verse);
+      }, function onError(err) {
+        callback(err, null);
+      });
+  }
+
+  function getAndConcatNextVerse(verseData, callback) {
+    getVerse(verseData.bible, verseData.book, verseData.chapter, verseData.verse + 1,
+      function (err, nextVerseData) {
+        if (nextVerseData) {
+          verseData.end = nextVerseData.verse;
+          verseData.text += ' ' + nextVerseData.text;
+        }
+        callback(err, verseData);
+      });
   }
 
   /**
@@ -43,12 +89,12 @@ var BibleDataService = function(Bible, Book, Verse) {
    * response.
    */
   function getBibles(callback) {
-    Bible.find({}, function(err, bibleEntities) {
+    Bible.find({}, function (err, bibleEntities) {
       if (err || !bibleEntities) {
         callback(err, null);
       } else {
         var bibles = [];
-        bibleEntities.forEach(function(entity) {
+        bibleEntities.forEach(function (entity) {
           bibles.push(bibleFromEntity(entity));
         });
         callback(err, bibles);
@@ -71,7 +117,7 @@ var BibleDataService = function(Bible, Book, Verse) {
    * response.
    */
   function getBible(code, callback) {
-    Bible.findOne({code: code}, function(err, bibleEntity) {
+    Bible.findOne({code: code}, function (err, bibleEntity) {
       if (err || !bibleEntity) {
         callback(err, null);
       } else {
@@ -97,20 +143,20 @@ var BibleDataService = function(Bible, Book, Verse) {
     // First ensure that the requested bible exists. We must do this since the
     // collection of books is currently a stand-alone set of meta data for all
     // bible versions.
-    Bible.findOne({code: bible}, function(err, bibleEntity) {
+    Bible.findOne({code: bible}, function (err, bibleEntity) {
       if (err || !bibleEntity) {
         callback(err, null);
       } else {
         // The required bible version exists (e.g. KJV, WEB, etc.), so go
         // ahead and retrieve the list of books and build the array of
         // response objects.
-        Book.find({}, function(err, bookEntities) {
+        Book.find({}, function (err, bookEntities) {
           if (err || !bookEntities) {
             callback(err, null);
           } else {
             // Build response with hyperlinks
             var books = [];
-            bookEntities.forEach(function(entity) {
+            bookEntities.forEach(function (entity) {
               books.push(createBookFromEntity(bible, entity));
             });
             callback(err, books);
@@ -136,7 +182,7 @@ var BibleDataService = function(Bible, Book, Verse) {
    */
   function getBook(bible, bookCode, callback) {
     var qry = {code: bookCode};
-    Book.findOne(qry, function(err, entity) {
+    Book.findOne(qry, function (err, entity) {
       if (err || !entity) {
         callback(err, null);
       } else {
@@ -154,7 +200,7 @@ var BibleDataService = function(Bible, Book, Verse) {
    */
 
   /**
-   * Gets the list of available books for the requested bible version.
+   * Gets the list of available chapters for the requested book.
    * @param {String} bible - The bible version code (e.g. KJV, WEB, etc.).
    * @param {String} book - The book code (e.g. GEN, EXO, etc.).
    * @param {getChaptersCallback} callback - The callback that handles the
@@ -163,9 +209,9 @@ var BibleDataService = function(Bible, Book, Verse) {
   function getChapters(bible, book, callback) {
     var qry = {bible: bible, book: book};
     // Retrieve a distinct list of chapter numbers
-    Verse.find(qry).distinct('chapter', function(err, chapterNumbers) {
+    Verse.find(qry).distinct('chapter', function (err, chapterNumbers) {
       var chapters = [];
-      chapterNumbers.forEach(function(chapterNumber) {
+      chapterNumbers.forEach(function (chapterNumber) {
         chapters.push({
           bible: bible,
           book: book,
@@ -194,7 +240,7 @@ var BibleDataService = function(Bible, Book, Verse) {
    */
   function getChapter(bible, book, chapter, callback) {
     var qry = {bible: bible, book: book, chapter: chapter};
-    Verse.find(qry, function(err, entities) {
+    Verse.find(qry, function (err, entities) {
       callback(err, chapterFromVerseEntities(entities));
     });
   }
@@ -218,9 +264,9 @@ var BibleDataService = function(Bible, Book, Verse) {
    */
   function getVerses(bible, book, chapter, callback) {
     var qry = {bible: bible, book: book, chapter: chapter};
-    Verse.find(qry, function(err, entities) {
+    Verse.find(qry, function (err, entities) {
       var verses = [];
-      entities.forEach(function(entity) {
+      entities.forEach(function (entity) {
         verses.push(verseFromEntity(entity));
       });
       callback(err, verses);
@@ -246,7 +292,7 @@ var BibleDataService = function(Bible, Book, Verse) {
    */
   function getVerse(bible, book, chapter, verse, callback) {
     var qry = {bible: bible, book: book, chapter: chapter, verse: verse};
-    Verse.findOne(qry, function(err, entity) {
+    Verse.findOne(qry, function (err, entity) {
       callback(err, verseFromEntity(entity));
     });
   }
@@ -256,7 +302,7 @@ var BibleDataService = function(Bible, Book, Verse) {
   //
 
   // Build object with hyperlinks
-  var bibleFromEntity = function(bibleEntity) {
+  var bibleFromEntity = function (bibleEntity) {
     var bible = bibleEntity.toJSON();
     delete bible._id;
     return bible;
