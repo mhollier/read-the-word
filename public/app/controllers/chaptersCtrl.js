@@ -1,7 +1,8 @@
 (function () {
   var app = angular.module('readTheWord');
 
-  var chaptersCtrl = function ($scope, $routeParams, $http, $log, bibleApi) {
+  var chaptersCtrl = function ($scope, $anchorScroll, $location,
+                               $routeParams, $http, $log, bibleApi) {
     var bibleCode = $routeParams['bibleCode'];
     var bookCode = $routeParams['bookCode'];
     var chapterNum = parseInt($routeParams['chapterNum'] || '1');
@@ -9,6 +10,7 @@
     $log.debug('chaptersCtrl: bible=' + bibleCode, ',book=' + bookCode);
 
     $scope.currChapterNum = chapterNum;
+    $scope.isChapterPanelCollapsed = true;
 
     // Get the bible detail
     bibleApi.getBible(bibleCode)
@@ -37,6 +39,12 @@
       var bibleCode = $routeParams['bibleCode'];
       var bookCode = $routeParams['bookCode'];
       $scope.currChapterNum = chapterNum;
+      $scope.isChapterPanelCollapsed = true;
+
+      // Scroll to chapterTitle anchor
+      $log.debug("Anchor scroll");
+      $anchorScroll('chapterTitle');
+
       return bibleApi.getChapterVerses(bibleCode, bookCode, chapterNum)
         .then(function (verses) {
           $log.debug('Received ' + verses.length + ' verses');
@@ -55,6 +63,10 @@
         return $scope.getChapterVerses($scope.currChapterNum - 1);
       }
     };
+
+    $scope.toggleChaptersDisplay = function () {
+      $scope.isChapterPanelCollapsed = !$scope.isChapterPanelCollapsed;
+    }
   };
 
   app.controller('chaptersCtrl', chaptersCtrl);

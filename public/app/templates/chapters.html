@@ -1,42 +1,51 @@
 <!-- Book chapter reader view -->
-<div class="container body-content">
+<div id="chapterTitle" class="container body-content">
   <h6 class="text-right"><a href="#bibles/{{bible.code}}">{{bible.title}}</a></h6>
-  <h2>{{book.title}}</h2>
 
-  <p>
-    <a href="#bibles/{{book.bible}}">Back to books</a>
-  </p>
-  <div>
-    <ul class="pagination">
-      <li ng-repeat="c in chapterRange"
-          class="{{c == currChapterNum?'active':''}}">
-        <a href="" ng-click="getChapterVerses(c)">
-          {{c}}
-        </a>
-      </li>
-    </ul>
+  <!-- Chapter title & navigation buttons -->
+  <div class="row">
+    <button type="button" class="btn btn-default"
+            ng-click="toggleChaptersDisplay()" style="text-align: left">
+      {{book.title}} &nbsp;<i class="pull-right glyphicon"
+                        ng-class="{'glyphicon-chevron-down': !isChapterPanelCollapsed, 'glyphicon-chevron-right': isChapterPanelCollapsed}"></i>
+    </button>
+
+    <!-- Chapter navigation buttons in a collapsible panel. -->
+    <div uib-collapse="isChapterPanelCollapsed">
+      <ul class="pagination">
+        <li ng-repeat="c in chapterRange"
+            class="{{c == currChapterNum?'active':''}}">
+          <a href="" ng-click="getChapterVerses(c)">
+            {{c}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Navigation buttons -->
-  <div>
-    <ul class="pager">
-      <li class="previous">
-        <a href="" ng-click="previousChapter()">
-          <span class="glyphicon glyphicon-chevron-left"></span> Previous
-        </a>
-      </li>
+  <!-- Chapter text -->
+  <div class="row">
 
-      <li class="next">
-        <a href="" ng-click="nextChapter()">
-          Next <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-      </li>
-    </ul>
-  </div>
+    <h4><strong>Chapter {{currChapterNum}}</strong></h4>
+    <div class="panel">
+      <p ng-repeat="verse in verses"><sup>{{verse.verse}}</sup> {{verse.text}}</p>
+    </div>
 
-  <!-- Render chapter text -->
-  <h4>Chapter {{currChapterNum}}</h4>
-  <div class="panel">
-    <p ng-repeat="verse in verses"><sup>{{verse.verse}}</sup> {{verse.text}}</p>
+    <!-- Navigation buttons -->
+    <div>
+      <ul class="pager">
+        <li class="previous">
+          <a href="" ng-click="previousChapter()">
+            <span class="glyphicon glyphicon-chevron-left"></span> Previous
+          </a>
+        </li>
+
+        <li class="next">
+          <a href="" ng-click="nextChapter()">
+            Next <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

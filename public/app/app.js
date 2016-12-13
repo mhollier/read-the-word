@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('readTheWord', ['ngRoute']);
+  var app = angular.module('readTheWord', ['ngRoute', 'ui.bootstrap']);
 
   app.config(function ($routeProvider) {
     $routeProvider
@@ -17,15 +17,15 @@
       })
       .when('/bibles/:bibleCode', {
         templateUrl: 'app/templates/books.html',
-        controller: "booksCtrl"
+        controller: 'booksCtrl'
       })
       .when('/bibles/:bibleCode/:bookCode/chapters', {
         templateUrl: 'app/templates/chapters.html',
-        controller: "chaptersCtrl"
+        controller: 'chaptersCtrl'
       })
       .when('/bibles/:bibleCode/:bookCode/chapters/:chapterNum', {
         templateUrl: 'app/templates/chapters.html',
-        controller: "chaptersCtrl"
+        controller: 'chaptersCtrl'
       })
       .otherwise({redirectTo: '/main'});
   });
